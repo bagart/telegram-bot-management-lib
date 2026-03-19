@@ -1,0 +1,23 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "bagart/telegram-bot-management-lib",
+    "type": "library",
+    "description": "Telegram Bot management library",
+    "keywords": ["telegram", "bot", "management"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "BAGArt",
+            "email": "baltaev.artur+lib@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.5",
+        "bagart/telegram-bot-lib": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "BAGArt\\TelegramBotManagement\\": "src/"
+        }
+    }
+}
