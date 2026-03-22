@@ -19,5 +19,13 @@
         "psr-4": {
             "BAGArt\\TelegramBotManagement\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BAGArt\\TelegramBotManagement\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "echo 'No tests yet for telegram-bot-management-lib'"
     }
 }

@@ -9,6 +9,10 @@ use Illuminate\Support\ServiceProvider;
 class TelegramBotManagementServiceProvider extends ServiceProvider
 {
     protected array $commands = [
+        \BAGArt\TelegramBotManagement\Commands\TgBMMonitorCommand::class,
+        \BAGArt\TelegramBotManagement\Commands\TgBMPollerCommand::class,
+        \BAGArt\TelegramBotManagement\Commands\TgBotManagerMigrate::class,
+        \BAGArt\TelegramBotManagement\Commands\TgBotManagerInit::class,
     ];
 
     public function register(): void
@@ -18,6 +22,7 @@ class TelegramBotManagementServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
     }
 }
