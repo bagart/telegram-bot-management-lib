@@ -6,14 +6,21 @@ namespace BAGArt\TelegramBotManagement\Registries;
 
 use BAGArt\TelegramBot\BotServices\BotSecretDTO;
 use BAGArt\TelegramBot\Contracts\TgBotRegistry\TgBotRegistryContract;
-use BAGArt\TelegramBot\Exceptions\TgBotTechnicalException;
+use BAGArt\TelegramBot\Exceptions\TgBotTechnicalWithEntityException;
 use BAGArt\TelegramBotManagement\Models\TgBot;
 
 class TgBotDbRegistry implements TgBotRegistryContract
 {
+    public static function build(): self
+    {
+
+
+        return new self();
+    }
+
     public function register(BotSecretDTO $bot): self
     {
-        throw new TgBotTechnicalException('TgBotDbRegistry::register', 'Use TelegramBotManager to register new Bots');
+        throw new TgBotTechnicalWithEntityException('TgBotDbRegistry::register', 'Use TelegramBotManager to register new Bots');
     }
 
     public function getBot(string $botId): ?BotSecretDTO
