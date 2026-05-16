@@ -13,6 +13,7 @@ class TelegramBotManagementServiceProvider extends ServiceProvider
         \BAGArt\TelegramBotManagement\Commands\TgBMPollerCommand::class,
         \BAGArt\TelegramBotManagement\Commands\TgBotManagerMigrate::class,
         \BAGArt\TelegramBotManagement\Commands\TgBotManagerInit::class,
+        \BAGArt\TelegramBotManagement\Commands\TgOutboundDaemonCommand::class,
     ];
 
     public function register(): void
@@ -24,5 +25,11 @@ class TelegramBotManagementServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/tg-outbound-daemon.php' => config_path('tg-outbound-daemon.php'),
+            ], 'tg-outbound-daemon-config');
+        }
     }
 }
