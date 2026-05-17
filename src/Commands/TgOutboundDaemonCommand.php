@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace BAGArt\TelegramBotManagement\Commands;
 
 use BAGArt\TelegramBot\ApiCommunication\Async\Scheduler\FiberScheduler;
-use BAGArt\TelegramBot\ApiCommunication\Daemon\TgOutboundDaemon;
-use BAGArt\TelegramBot\ApiCommunication\Daemon\TgOutboundRequestExecutor;
-use BAGArt\TelegramBot\ApiCommunication\Daemon\TgRequestOrderingManager;
+use BAGArt\TelegramBot\ApiCommunication\Queue\TgOutboundDaemon;
+use BAGArt\TelegramBot\ApiCommunication\Queue\TgRequestOrderingManager;
+use BAGArt\TelegramBot\ApiCommunication\TgBotApiDTOClient;
 use BAGArt\TelegramBot\Contracts\ApiCommunication\ClientServices\TgRateLimiterContract;
 use BAGArt\TelegramBot\Contracts\ApiCommunication\ClientServices\TgRetryPolicyContract;
 use BAGArt\TelegramBot\Contracts\ApiCommunication\QueueConsumerContract;
@@ -45,11 +45,6 @@ class TgOutboundDaemonCommand extends Command
             logger: $logger,
         );
 
-        $executor = new TgOutboundRequestExecutor(
-            transport: $transport,
-            logger: $logger,
-        );
-
         $ordering = new TgRequestOrderingManager(
             scheduler: $scheduler,
             logger: $logger,
@@ -59,7 +54,10 @@ class TgOutboundDaemonCommand extends Command
             consumer: $consumer,
             producer: $producer,
             scheduler: $scheduler,
-            executor: $executor,
+            dtoClient: TgBotApiDTOClient::build(
+                transport: $transport,
+                logger: $logger,
+            ),
             ordering: $ordering,
             rateLimiter: $rateLimiter,
             retryPolicy: $retryPolicy,

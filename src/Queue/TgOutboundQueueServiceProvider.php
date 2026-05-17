@@ -6,7 +6,7 @@ namespace BAGArt\TelegramBotManagement\Queue;
 
 use BAGArt\TelegramBot\ApiCommunication\ClientServices\TgRateLimiter;
 use BAGArt\TelegramBot\ApiCommunication\ClientServices\TgRetryPolicy;
-use BAGArt\TelegramBot\ApiCommunication\Daemon\TgRequestCorrelation;
+use BAGArt\TelegramBot\ApiCommunication\Queue\TgRequestCorrelation;
 use BAGArt\TelegramBot\ApiCommunication\Transport\TgCurlMultiTransport;
 use BAGArt\TelegramBot\Contracts\ApiCommunication\ClientServices\TgRateLimiterContract;
 use BAGArt\TelegramBot\Contracts\ApiCommunication\ClientServices\TgRetryPolicyContract;
@@ -45,12 +45,12 @@ class TgOutboundQueueServiceProvider extends ServiceProvider
 
         $this->app->singleton(
             QueueProducerContract::class,
-            LaravelQueueProducer::class,
+            RawRedisQueueProducer::class,
         );
 
         $this->app->singleton(
             QueueConsumerContract::class,
-            LaravelQueueConsumer::class,
+            RawRedisQueueConsumer::class,
         );
 
         $this->app->singleton(
